@@ -43,7 +43,7 @@ async function main(): Promise<INestApplication> {
   return await app.listen({{port}});
 }
 
-if (import.meta.env.{{applicationName.constantCase()}}_PRODUCTION === 'true') {
+if (import.meta.env.PROD) {
   // eslint-disable-next-line no-console
   const server = await main();
 
