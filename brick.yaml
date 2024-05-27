@@ -31,7 +31,7 @@ vars:
     description: The Application Name
     default: Dash
     prompt: What is the name of this NestJs application?
-   port:
+  port:
     type: number
     description: Port to listen on.
     prompt: Which port do you want to use for this application?
