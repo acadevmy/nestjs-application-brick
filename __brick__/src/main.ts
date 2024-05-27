@@ -1,5 +1,3 @@
-import './instrument';
-
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import {
   BaseExceptionFilter,
@@ -12,6 +10,11 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
+
+Sentry.init({
+  dsn: import.meta.env.{{applicationName.constantCase()}}_SENTRY_DNS,
+  tracesSampleRate: 1.0,
+});
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -40,7 +43,7 @@ async function main(): Promise<INestApplication> {
   return await app.listen({{port}});
 }
 
-if (import.meta.env.production === 'true') {
+if (import.meta.env.{{applicationName.constantCase()}}_PRODUCTION === 'true') {
   // eslint-disable-next-line no-console
   const server = await main();
 
