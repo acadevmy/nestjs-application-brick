@@ -3,10 +3,10 @@ import { VitePluginNode } from 'vite-plugin-node';
 
 export default defineConfig({
   server: {
-    port: 3000,
+    port: {{port}},
   },
   preview: {
-    port: 3000,
+    port: {{port}},
   },
   envPrefix: '{{applicationName.constantCase()}}_',
   envDir: '../..',

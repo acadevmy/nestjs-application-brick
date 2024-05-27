@@ -37,7 +37,7 @@ export const viteNodeApp = bootstrap();
 
 async function main(): Promise<INestApplication> {
   const app = await viteNodeApp;
-  return await app.listen(3000);
+  return await app.listen({{port}});
 }
 
 if (import.meta.env.production === 'true') {

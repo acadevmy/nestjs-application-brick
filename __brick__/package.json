@@ -1,5 +1,5 @@
 {
-  "name": "nest-brick-template",
+  "name": "{{applicationName.paramCase()}}",
   "version": "0.0.0",
   "description": "",
   "author": "",
