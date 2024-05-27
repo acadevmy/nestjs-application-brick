@@ -1,7 +1,7 @@
-import { ValidationPipe } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
@@ -21,6 +21,26 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3300);
+  return app;
 }
-bootstrap();
+export const viteNodeApp = bootstrap();
+
+async function main(): Promise<INestApplication> {
+  const app = await viteNodeApp;
+  return await app.listen(3000);
+}
+
+if (import.meta.env.production === 'true') {
+  // eslint-disable-next-line no-console
+  const server = await main();
+
+  process.on('SIGTERM', async () => {
+    // eslint-disable-next-line no-console
+    console.info('SIGTERM signal received.');
+    // eslint-disable-next-line no-console
+    console.log('Closing http server.');
+    await server.close();
+    // eslint-disable-next-line no-console
+    console.log('Http server closed.');
+  });
+}
