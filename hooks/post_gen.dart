@@ -12,5 +12,5 @@ void logSentryConfiguration({required HookContext context}) {
 
   String applicationName = context.vars['applicationName'];
 
-  print('   ${applicationName}_SENTRY_DNS\n');
+  print('   ${applicationName.constantCase}_SENTRY_DNS\n');
 }
