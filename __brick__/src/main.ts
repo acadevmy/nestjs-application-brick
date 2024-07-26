@@ -1,9 +1,5 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import {
-  BaseExceptionFilter,
-  HttpAdapterHost,
-  NestFactory,
-} from '@nestjs/core';
+import { BaseExceptionFilter, HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as Sentry from '@sentry/node';
 import cookieParser from 'cookie-parser';
