@@ -1,16 +1,13 @@
+import "./instrument";
+
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { BaseExceptionFilter, HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as Sentry from '@sentry/node';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
 
-Sentry.init({
-  dsn: import.meta.env.{{applicationName.constantCase()}}_SENTRY_DNS,
-  tracesSampleRate: 1.0,
-});
 
 async function bootstrap(): Promise<INestApplication> {
   const app = await NestFactory.create(AppModule);
@@ -26,9 +23,6 @@ async function bootstrap(): Promise<INestApplication> {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
-  const { httpAdapter } = app.get(HttpAdapterHost);
-  Sentry.setupNestErrorHandler(app, new BaseExceptionFilter(httpAdapter));
 
   return app;
 }
