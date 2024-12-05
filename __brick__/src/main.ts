@@ -12,7 +12,7 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-async function bootstrap() {
+async function bootstrap(): Promise<INestApplication> {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
@@ -36,11 +36,12 @@ export const viteNodeApp = bootstrap();
 
 async function main(): Promise<INestApplication> {
   const app = await viteNodeApp;
-  return await app.listen({{port}});
+  const defaultPort = {{port}};
+
+  return await app.listen(defaultPort);
 }
 
 if (import.meta.env.PROD) {
-  // eslint-disable-next-line no-console
   const server = await main();
 
   process.on('SIGTERM', async () => {
